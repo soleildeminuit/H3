@@ -61,6 +61,8 @@ number_baths_per_h3 <- df %>%
 
 h3_polygons <- left_join(h3_polygons, number_baths_per_h3, by = "id")
 
-tm_shape(h3_polygons) + 
-  tm_fill("n", style = "quantile", palette = "viridis", alpha = 0.7) +
-  tm_borders()
+t <- tm_shape(h3_polygons) + 
+  tm_fill("n", style = "quantile", palette = "viridis", colorNA = "grey85") +
+  tm_borders() + tm_shape(borders) + tm_borders()
+
+tmap_save(t, filename = "h3_map.png", width = 297, height = 210, units = "mm", dpi = 600)
